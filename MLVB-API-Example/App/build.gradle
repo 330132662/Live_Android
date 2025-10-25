@@ -5,7 +5,8 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.tencent.mlvb.apiexample"
+//        applicationId "com.tencent.mlvb.apiexample"
+        applicationId "com.juhui2025.wfsz_live1020"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 24

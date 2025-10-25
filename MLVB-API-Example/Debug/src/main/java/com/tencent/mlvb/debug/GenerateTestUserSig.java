@@ -43,22 +43,22 @@ public class GenerateTestUserSig {
      * License URL of your application
      */
     public static final String LICENSEURL =
-            "PLACEHOLDER";
+            "https://1383708708.trtcube-license.cn/license/v2/1383708708_1/v_cube.license";
 
 
     /**
      * License Management View (https://console.cloud.tencent.com/live/license)
      * License key of your application
      */
-    public static final String LICENSEURLKEY = "PLACEHOLDER";
+    public static final String LICENSEURLKEY = "1c841f164456877e8e5548ba822461c1";
 
     /**
      * Tencent Cloud `SDKAppID`. Set it to the `SDKAppID` of your account.
-     * You can view your `SDKAppID` after creating an application in the [TRTC console](https://console.cloud.tencent
-     * .com/rav).
+     * You can view your `SDKAppID` after creating an application in the [TRTC console](https://console.cloud.tencent.com/rav
+     * ).
      * `SDKAppID` uniquely identifies a Tencent Cloud account.
      */
-    public static final int SDKAPPID = PLACEHOLDER;
+    public static final int SDKAPPID = 1600110559;
 
 
     /**
@@ -79,19 +79,19 @@ public class GenerateTestUserSig {
      * and key to your backend server to prevent key disclosure and traffic stealing.
      * Documentation: https://cloud.tencent.com/document/product/647/17275#Server
      */
-    public static final String SDKSECRETKEY = "PLACEHOLDER";
+    public static final String SDKSECRETKEY = "c8309a16922b0ed950a8497c360d0b053a036443f7206e0ff70970f61d8a5726";
 
     /**
      * Configured push address
      * Tencent Cloud domain name management page: https://console.cloud.tencent.com/live/domainmanage
      */
-    public static final String PUSH_DOMAIN = "PLACEHOLDER";
+    public static final String PUSH_DOMAIN = "webrtc://222132.push.tlivecloud.com/live/667755?txSecret=39daa2287ee7743bf02cf537a9a9327a&txTime=68FD8A5E";
 
     /**
      * Configured streaming address
      * Tencent Cloud domain name management page: https://console.cloud.tencent.com/live/domainmanage
      */
-    public static final String PLAY_DOMAIN = "PLACEHOLDER";
+    public static final String PLAY_DOMAIN = "webrtc://wfszzb2.test.jhwangluo.com/live/667755";
 
     /**
      * If the authentication key of the authentication configuration is enabled

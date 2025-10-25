@@ -40,26 +40,24 @@ public class LivePushCameraActivity extends MLVBBaseActivity implements View.OnC
     private static final String TAG = "LivePushCameraActivity";
 
     private TXCloudVideoView mPushRenderView;
-    private V2TXLivePusher   mLivePusher;
-    private TextView         mTextTitle;
-    private LinearLayout     mLinearResolution;
-    private TextView         mTextResolution;
-    private LinearLayout     mLinearRotate;
-    private TextView         mTextRotate;
-    private LinearLayout     mLinearMirror;
-    private TextView         mTextMirror;
-    private Button           mButtonMic;
+    private V2TXLivePusher mLivePusher;
+    private TextView mTextTitle;
+    private LinearLayout mLinearResolution;
+    private TextView mTextResolution;
+    private LinearLayout mLinearRotate;
+    private TextView mTextRotate;
+    private LinearLayout mLinearMirror;
+    private TextView mTextMirror;
+    private Button mButtonMic;
 
-    private String  mStreamId;
-    private int     mStreamType = 0;
-    private boolean mMicFlag    = true;
+    private String mStreamId;
+    private int mStreamType = 0;
+    private boolean mMicFlag = true;
 
-    private V2TXLiveDef.V2TXLiveAudioQuality    mAudioQuality   =
-            V2TXLiveDef.V2TXLiveAudioQuality.V2TXLiveAudioQualityDefault;
-    private V2TXLiveDef.V2TXLiveRotation        mRotationFlag   = V2TXLiveDef.V2TXLiveRotation.V2TXLiveRotation0;
-    private V2TXLiveDef.V2TXLiveMirrorType      mMirrorFlag     = V2TXLiveDef.V2TXLiveMirrorType.V2TXLiveMirrorTypeAuto;
-    private V2TXLiveDef.V2TXLiveVideoResolution mResolutionFlag =
-            V2TXLiveDef.V2TXLiveVideoResolution.V2TXLiveVideoResolution960x540;
+    private V2TXLiveDef.V2TXLiveAudioQuality mAudioQuality = V2TXLiveDef.V2TXLiveAudioQuality.V2TXLiveAudioQualityDefault;
+    private V2TXLiveDef.V2TXLiveRotation mRotationFlag = V2TXLiveDef.V2TXLiveRotation.V2TXLiveRotation0;
+    private V2TXLiveDef.V2TXLiveMirrorType mMirrorFlag = V2TXLiveDef.V2TXLiveMirrorType.V2TXLiveMirrorTypeAuto;
+    private V2TXLiveDef.V2TXLiveVideoResolution mResolutionFlag = V2TXLiveDef.V2TXLiveVideoResolution.V2TXLiveVideoResolution960x540;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +67,8 @@ public class LivePushCameraActivity extends MLVBBaseActivity implements View.OnC
             initIntentData();
             initView();
             startPush();
+        } else {
+            Toast.makeText(this, "请先申请权限", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -125,7 +125,10 @@ public class LivePushCameraActivity extends MLVBBaseActivity implements View.OnC
         mLivePusher.startCamera(true);
         int ret = mLivePusher.startPush(pushUrl);
         mLivePusher.startMicrophone();
-        Log.i(TAG, "startPush return: " + ret);
+        if (ret != 0) {
+            Toast.makeText(this, "推流失败", Toast.LENGTH_SHORT).show();
+        }
+        Log.i(TAG, "startPush return: " + ret);//ret 的值   https://cloud.tencent.com/document/product/454/56592#.E4.BA.8B.E4.BB.B6.E7.9B.91.E5.90.AC
     }
 
     @Override
@@ -184,14 +187,11 @@ public class LivePushCameraActivity extends MLVBBaseActivity implements View.OnC
                         mResolutionFlag = V2TXLiveDef.V2TXLiveVideoResolution.V2TXLiveVideoResolution1920x1080;
                         mTextResolution.setText("1080P");
                     }
-                    V2TXLiveDef.V2TXLiveVideoEncoderParam param =
-                            new V2TXLiveDef.V2TXLiveVideoEncoderParam(mResolutionFlag);
-                    param.videoResolutionMode =
-                            V2TXLiveDef.V2TXLiveVideoResolutionMode.V2TXLiveVideoResolutionModePortrait;
+                    V2TXLiveDef.V2TXLiveVideoEncoderParam param = new V2TXLiveDef.V2TXLiveVideoEncoderParam(mResolutionFlag);
+                    param.videoResolutionMode = V2TXLiveDef.V2TXLiveVideoResolutionMode.V2TXLiveVideoResolutionModePortrait;
                     mLivePusher.setVideoQuality(param);
                 } else {
-                    Toast.makeText(LivePushCameraActivity.this,
-                            getString(R.string.livepushcamera_please_ensure_pushing), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LivePushCameraActivity.this, getString(R.string.livepushcamera_please_ensure_pushing), Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }
@@ -218,8 +218,7 @@ public class LivePushCameraActivity extends MLVBBaseActivity implements View.OnC
                     }
                     mLivePusher.setRenderMirror(mMirrorFlag);
                 } else {
-                    Toast.makeText(LivePushCameraActivity.this,
-                            getString(R.string.livepushcamera_please_ensure_pushing), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LivePushCameraActivity.this, getString(R.string.livepushcamera_please_ensure_pushing), Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }
@@ -249,8 +248,7 @@ public class LivePushCameraActivity extends MLVBBaseActivity implements View.OnC
                     }
                     mLivePusher.setRenderRotation(mRotationFlag);
                 } else {
-                    Toast.makeText(LivePushCameraActivity.this,
-                            getString(R.string.livepushcamera_please_ensure_pushing), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LivePushCameraActivity.this, getString(R.string.livepushcamera_please_ensure_pushing), Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }
@@ -259,17 +257,21 @@ public class LivePushCameraActivity extends MLVBBaseActivity implements View.OnC
     }
 
     private void enableMic(boolean mMicFlag) {
-        if (mLivePusher != null && mLivePusher.isPushing() == 1) {
-            if (mMicFlag) {
-                mLivePusher.startMicrophone();
-                mButtonMic.setText(R.string.livepushcamera_close_mic);
+        if (mLivePusher != null) {
+            if (mLivePusher.isPushing() == 1) {
+                if (mMicFlag) {
+                    mLivePusher.startMicrophone();
+                    mButtonMic.setText(R.string.livepushcamera_close_mic);
+                } else {
+                    mLivePusher.stopMicrophone();
+                    mButtonMic.setText(R.string.livepushcamera_open_mic);
+                }
             } else {
-                mLivePusher.stopMicrophone();
-                mButtonMic.setText(R.string.livepushcamera_open_mic);
+                Toast.makeText(this, "no pushing", Toast.LENGTH_SHORT).show();
             }
+
         } else {
-            Toast.makeText(LivePushCameraActivity.this, getString(R.string.livepushcamera_please_ensure_pushing),
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(LivePushCameraActivity.this, getString(R.string.livepushcamera_please_ensure_pushing), Toast.LENGTH_SHORT).show();
         }
     }
 }

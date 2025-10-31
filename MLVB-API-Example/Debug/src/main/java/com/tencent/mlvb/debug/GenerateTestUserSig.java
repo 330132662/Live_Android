@@ -85,13 +85,13 @@ public class GenerateTestUserSig {
      * Configured push address
      * Tencent Cloud domain name management page: https://console.cloud.tencent.com/live/domainmanage
      */
-    public static final String PUSH_DOMAIN = "webrtc://222132.push.tlivecloud.com/live/667755?txSecret=39daa2287ee7743bf02cf537a9a9327a&txTime=68FD8A5E";
+    public static final String PUSH_DOMAIN = "222132.push.tlivecloud.com";
 
     /**
      * Configured streaming address
      * Tencent Cloud domain name management page: https://console.cloud.tencent.com/live/domainmanage
      */
-    public static final String PLAY_DOMAIN = "webrtc://wfszzb2.test.jhwangluo.com/live/667755";
+    public static final String PLAY_DOMAIN = "wfszzb2.test.jhwangluo.com";
 
     /**
      * If the authentication key of the authentication configuration is enabled
@@ -101,7 +101,7 @@ public class GenerateTestUserSig {
      * For details, please refer to the
      * https://console.cloud.tencent.com/live/domainmanage page -》 Push configuration -》 Authentication configuration
      */
-    public static final String LIVE_URL_KEY = "PLACEHOLDER";
+    public static final String LIVE_URL_KEY = "a659b14e13bba5ef84e8674da941b9ed";
 
 
     /**
